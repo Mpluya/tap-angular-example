@@ -13,6 +13,10 @@ uri = "paketo-buildpacks/nodejs"
 uri = "paketo-buildpacks/nginx"
 
 [[ build.env ]]
+name="NODE_ENV"
+value="development"
+
+[[ build.env ]]
 name="BP_NODE_RUN_SCRIPTS"
 value="build"
 
