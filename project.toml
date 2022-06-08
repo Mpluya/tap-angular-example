@@ -7,14 +7,7 @@ version = "1.0.0"
 exclude = ["/README.md"]
 
 [[build.buildpacks]]
-uri = "paketo-buildpacks/nodejs"
-
-[[build.buildpacks]]
-uri = "paketo-buildpacks/nginx"
-
-[[ build.env ]]
-name="NODE_ENV"
-value="development"
+uri = "paketo-buildpacks/web-servers"
 
 [[ build.env ]]
 name="BP_NODE_RUN_SCRIPTS"
