@@ -4,7 +4,7 @@ name = "Consumer UI"
 version = "1.0.0"
 
 [build]
-exclude = ["/README.md"]
+exclude = ["/README.md", ".git/"]
 
 [[build.buildpacks]]
 uri = "paketo-buildpacks/web-servers"
