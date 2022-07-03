@@ -57,6 +57,10 @@ patches:
     - op: replace
       path: /spec/resources/2/params/1/value
       value: spa
+    - op: replace
+      path: /spec/selector/apps.tanzu.vmware.com~1workload-type
+      value: spa
+EOF
 ```
 ```
 kubectl apply -k .
