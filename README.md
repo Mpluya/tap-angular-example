@@ -13,7 +13,7 @@ with only a few tweaks.
 
 1. Create `ClusterBuilder` that includes the `web-servers` buildpack
 ```
-REGISTY="gcr.io/cso-pcfs-emea-mewald"
+REGISTRY="gcr.io/cso-pcfs-emea-mewald"
 kp clusterstore create spa \
   -b paketobuildpacks/web-servers
 
