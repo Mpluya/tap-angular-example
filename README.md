@@ -11,6 +11,38 @@ possible with the default configuration.
 Luckily, TAP is very extensible and customizable so that we can make this work
 with only a few tweaks.
 
+0. Create a `ClusterStack` that is compatible with the `web-servers` buildpack
+
+**custom-stack.yaml**
+```
+---
+apiVersion: stacks.stacks-operator.tanzu.vmware.com/v1alpha1
+kind: CustomStack
+metadata:
+  name: spa-stack
+spec:
+  source:
+    stack:
+      name: base
+      kind: ClusterStack
+  destination:
+    build:
+      tag: gcr.io/cso-pcfs-emea-mewald/build-service/spa-buildimage
+    run:
+      tag: gcr.io/cso-pcfs-emea-mewald/build-service/spa-runimage
+    stack:
+      name: spa
+      kind: ClusterStack
+  packages:
+    - name: libexpat1
+  mixins:
+    - name: libexpat1
+  serviceAccountName: kp-default-repository-serviceaccount
+```
+```
+kubectl -n kpack apply -f custom-stack.yaml
+```
+
 1. Create `ClusterBuilder` that includes the `web-servers` buildpack
 ```
 REGISTRY="gcr.io/cso-pcfs-emea-mewald"
@@ -20,18 +52,11 @@ kp clusterstore create spa \
 kp clusterbuilder create spa \
   --buildpack paketo-buildpacks/web-servers \
   --tag $REGISTRY/spa:v2 \
-  --stack full \
+  --stack spa \
   --store spa
 ```
 
 2. Create a `ClusterSupplyChain` that uses that new `ClusterBuilder`
-
-**Option A:** Edit the `source-to-url` supply chain and add a parameter to
-overwrite the `clusterBuilder` value. If rolled out via `PackageInstall` this
-will be reverted through the reconciliation process of kapp-controller.
-
-**Option B:** Create a separate `ClusterSupplyChain` that selects `spa`
-`Workloads` and annotate your `Workload` accordingly.
 
 ```
 mkdir source-to-url-spa
@@ -50,12 +75,12 @@ patches:
     group: carto.run
     kind: ClusterSupplyChain
     version: v1alpha1
-  patch: | 
+  patch: |
     - op: replace
       path: /metadata/name
       value: source-to-url-spa
     - op: replace
-      path: /spec/resources/2/params/1/value
+      path: /spec/resources/2/params/2/default
       value: spa
     - op: replace
       path: /spec/selector/apps.tanzu.vmware.com~1workload-type

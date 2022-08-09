@@ -1,0 +1,13 @@
+apiVersion: kpack.io/v1alpha2
+kind: ClusterStack
+metadata:
+  name: default
+spec:
+  buildImage:
+    image: gcr.io/cso-pcfs-emea-mewald/build-service@sha256:dc21c47d174c91ac29ccaf50675cb34983591566810016fcc2b77e7ef9f18e04
+  id: io.buildpacks.stacks.bionic
+  runImage:
+    image: gcr.io/cso-pcfs-emea-mewald/build-service@sha256:df540c820fb2438ab90e5a71c62f6941275351b7b559697f77ff4993b2beb02a
+  serviceAccountRef:
+    name: kp-default-repository-serviceaccount
+    namespace: kpack

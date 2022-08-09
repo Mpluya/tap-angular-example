@@ -8,6 +8,6 @@ metadata:
 spec:
   source:
     git:
-      url: git@github.com:mathias-ewald/tap-angular-example.git
+      url: https://github.com/mathias-ewald/tap-angular-example.git
       ref:
         branch: main
