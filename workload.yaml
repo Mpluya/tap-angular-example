@@ -6,6 +6,9 @@ metadata:
     apps.tanzu.vmware.com/workload-type: spa
     app.kubernetes.io/part-of: tap-angular-example
 spec:
+  params:
+  - name: clusterBuilder
+    value: spa
   source:
     git:
       url: https://github.com/mathias-ewald/tap-angular-example.git
