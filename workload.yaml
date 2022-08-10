@@ -3,7 +3,7 @@ kind: Workload
 metadata:
   name: tap-angular-example
   labels: 
-    apps.tanzu.vmware.com/workload-type: spa
+    apps.tanzu.vmware.com/workload-type: web
     app.kubernetes.io/part-of: tap-angular-example
 spec:
   params:
